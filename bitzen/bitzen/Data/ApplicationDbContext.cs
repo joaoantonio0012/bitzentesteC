@@ -13,5 +13,9 @@ namespace bitzen.Data
             : base(options)
         {
         }
+
+        public DbSet<Veiculo> Veiculos { get; set; }
+        public DbSet<Abastecimento> Abastecimentos { get; set; }
+
     }
 }
