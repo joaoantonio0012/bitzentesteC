@@ -12,20 +12,18 @@ namespace bitzen.Models
         public int Id{ get; set; }
 
         [Required(ErrorMessage = "O Campo {0} é requirido!")]
-        [StringLength(10, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 1)]
-
+       
         [Display(Name = "Quilometragem")]
         public int Km { get; set; }
 
         [Required(ErrorMessage = "O Campo {0} é requirido!")]
-        [StringLength(10, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 1)]
+       
         [Display(Name = "Litros")]
         public Decimal Litros { get; set; }
 
         [Required(ErrorMessage = "O Campo {0} é requirido!")]
         [Display(Name = "Valor")]
-        [StringLength(10, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 1)]
-
+       
         public Decimal Valor  { get; set; }
          
         [Display(Name = "Data Cadastro")]

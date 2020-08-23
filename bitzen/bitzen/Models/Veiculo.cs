@@ -23,7 +23,7 @@ namespace bitzen.Models
         public string Modelo { get; set; }
 
         [Required(ErrorMessage = "O Campo {0} é requirido!")]
-        [StringLength(4, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 4)]
+        
         [Display(Name = "Ano")]
         public int Ano { get; set; }
 
@@ -43,15 +43,13 @@ namespace bitzen.Models
         [StringLength(100, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 2)]
         [Display(Name = "Tipo Combustivel")]
         public string TipoCombustivel { get; set; }
-
-        [Required(ErrorMessage = "O Campo {0} é requirido!")]
+         
         public string Imagem { get; set; }
 
 
         [Required(ErrorMessage = "O Campo {0} é requirido!")]
         [Display(Name = "Quilometragem")]
-        [StringLength(10, ErrorMessage = "O campo {0} deve conter no minimo {2} e no max {1} caracteres.", MinimumLength = 1)]
-
+        
         public int Km { get; set; }
 
          

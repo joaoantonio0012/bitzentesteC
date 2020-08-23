@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bitzen.Data;
 
 namespace bitzen.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200823190243_Classes-veiculos-abasteciment")]
+    partial class Classesveiculosabasteciment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,9 +145,11 @@ namespace bitzen.Data.Migrations
 
                     b.Property<string>("IdUser");
 
-                    b.Property<int>("Km");
+                    b.Property<int>("Km")
+                        .HasMaxLength(10);
 
-                    b.Property<decimal>("Litros");
+                    b.Property<decimal>("Litros")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Posto")
                         .IsRequired()
@@ -226,13 +230,15 @@ namespace bitzen.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Ano");
+                    b.Property<int>("Ano")
+                        .HasMaxLength(4);
 
                     b.Property<string>("IdUser");
 
                     b.Property<string>("Imagem");
 
-                    b.Property<int>("Km");
+                    b.Property<int>("Km")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Marca")
                         .IsRequired()

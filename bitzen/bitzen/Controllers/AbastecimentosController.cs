@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using bitzen.Data;
 using bitzen.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace bitzen.Controllers
 {
+    [Authorize]
     public class AbastecimentosController : Controller
     {
+        
         private readonly ApplicationDbContext _context;
 
         public AbastecimentosController(ApplicationDbContext context)
@@ -22,7 +25,7 @@ namespace bitzen.Controllers
         // GET: Abastecimentos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Abastecimentos.Include(a => a.Veiculo);
+            var applicationDbContext = _context.Abastecimentos.Include(a => a.Veiculo).Where( a => a.IdUser == User.Identity.Name);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,7 +51,7 @@ namespace bitzen.Controllers
         // GET: Abastecimentos/Create
         public IActionResult Create()
         {
-            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Imagem");
+            ViewData["VeiculoId"] = new SelectList(_context.Veiculos.Where(v => v.IdUser == User.Identity.Name ), "VeiculoId", "Placa");
             return View();
         }
 
@@ -59,30 +62,36 @@ namespace bitzen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Km,Litros,Valor,DataAbastecimento,Posto,IdUser,Tipo,VeiculoId")] Abastecimento abastecimento)
         {
+            abastecimento.IdUser = User.Identity.Name;
+
             if (ModelState.IsValid)
             {
                 _context.Add(abastecimento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Imagem", abastecimento.VeiculoId);
+            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Placa", abastecimento.VeiculoId);
             return View(abastecimento);
         }
 
         // GET: Abastecimentos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var abastecimento = await _context.Abastecimentos.FindAsync(id);
+
+            abastecimento.IdUser = User.Identity.Name;
             if (abastecimento == null)
             {
                 return NotFound();
             }
-            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Imagem", abastecimento.VeiculoId);
+            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Placa", abastecimento.VeiculoId);
             return View(abastecimento);
         }
 
@@ -118,7 +127,7 @@ namespace bitzen.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Imagem", abastecimento.VeiculoId);
+            ViewData["VeiculoId"] = new SelectList(_context.Veiculos, "VeiculoId", "Placa", abastecimento.VeiculoId);
             return View(abastecimento);
         }
 

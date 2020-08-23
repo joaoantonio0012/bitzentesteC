@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using bitzen.Data;
+﻿using bitzen.Data;
 using bitzen.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks; 
 
 namespace bitzen.Controllers
 {
+    [Authorize]
     public class VeiculosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +26,7 @@ namespace bitzen.Controllers
         // GET: Veiculos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Veiculos.ToListAsync());
+            return View(await _context.Veiculos.Where(v => v.IdUser == User.Identity.Name).ToListAsync());
         }
 
         // GET: Veiculos/Details/5
@@ -57,10 +58,38 @@ namespace bitzen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Veiculo veiculo, IFormFile imagem)
+        public async Task<IActionResult> Create( Veiculo veiculo, IFormFile Imagem)
         {
 
+            veiculo.IdUser = User.Identity.Name;
 
+            if (Imagem != null && Imagem.Length > 0)
+            {
+                var caminhoDaImagem = @"\Uploads\Imagens\";
+                var uploadCaminho = _env.WebRootPath + caminhoDaImagem;
+
+                //Criar pasta Imagens
+                if (!Directory.Exists(uploadCaminho))
+                {
+                    Directory.CreateDirectory(uploadCaminho);
+                }
+
+                //Criar nomes únicos nas imagens
+                var nomeUnico = Guid.NewGuid().ToString();
+                var NomeDoArquivo = Path.GetFileName(nomeUnico + "." + Imagem.FileName.Split('.')[1].ToLower());
+                string CaminhoCompleto = uploadCaminho + NomeDoArquivo;
+
+                caminhoDaImagem = caminhoDaImagem + @"\";
+                var Arquivo = @".." + Path.Combine(caminhoDaImagem, NomeDoArquivo);
+
+                using (var fileStream = new FileStream(CaminhoCompleto, FileMode.Create))
+                {
+                    await Imagem.CopyToAsync(fileStream);
+                }
+
+                veiculo.Imagem = caminhoDaImagem + NomeDoArquivo;
+
+            }
 
 
 
@@ -94,8 +123,40 @@ namespace bitzen.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VeiculoId,Marca,Modelo,Ano,Placa,TipoVeiculo,TipoCombustivel,Imagem,Km,IdUser")] Veiculo veiculo)
+        public async Task<IActionResult> Edit(int id, [Bind("VeiculoId,Marca,Modelo,Ano,Placa,TipoVeiculo,TipoCombustivel,Imagem,Km,IdUser")] Veiculo veiculo, IFormFile Imagem)
         {
+
+            veiculo.IdUser = User.Identity.Name;
+
+            if (Imagem != null && Imagem.Length > 0)
+            {
+                var caminhoDaImagem = @"\Uploads\Imagens\";
+                var uploadCaminho = _env.WebRootPath + caminhoDaImagem;
+
+                //Criar pasta Imagens
+                if (!Directory.Exists(uploadCaminho))
+                {
+                    Directory.CreateDirectory(uploadCaminho);
+                }
+
+                //Criar nomes únicos nas imagens
+                var nomeUnico = Guid.NewGuid().ToString();
+                var NomeDoArquivo = Path.GetFileName(nomeUnico + "." + Imagem.FileName.Split('.')[1].ToLower());
+                string CaminhoCompleto = uploadCaminho + NomeDoArquivo;
+
+                caminhoDaImagem = caminhoDaImagem + @"\";
+                var Arquivo = @".." + Path.Combine(caminhoDaImagem, NomeDoArquivo);
+
+                using (var fileStream = new FileStream(CaminhoCompleto, FileMode.Create))
+                {
+                    await Imagem.CopyToAsync(fileStream);
+                }
+
+                veiculo.Imagem = caminhoDaImagem + NomeDoArquivo;
+
+            }
+
+
             if (id != veiculo.VeiculoId)
             {
                 return NotFound();
