@@ -43,12 +43,17 @@ namespace bitzen
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+
             services.AddIdentityCore<CamposUsuario>()
                 .AddRoles<IdentityRole>()
                 .AddClaimsPrincipalFactory<UserClaimsPrincipalFactory<CamposUsuario, IdentityRole>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
+
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
