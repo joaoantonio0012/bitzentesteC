@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "4793af9c-a620-4455-99a6-045d2f46399a",
+		"name": "relatoriosBitzen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetLitrosPorAno",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44370/api/Abastecimentos/GetLitrosPorAno/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44370",
+					"path": [
+						"api",
+						"Abastecimentos",
+						"GetLitrosPorAno",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44370/api/Abastecimentos/GetTotalLitrosPorAno/2020",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44370/api/Abastecimentos/GetTotalLitrosPorAno/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44370",
+					"path": [
+						"api",
+						"Abastecimentos",
+						"GetTotalLitrosPorAno",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44370/api/Abastecimentos/GetTotalValorPagoPorAno/2020",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44370/api/Abastecimentos/GetTotalValorPagoPorAno/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44370",
+					"path": [
+						"api",
+						"Abastecimentos",
+						"GetTotalValorPagoPorAno",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44370/api/Abastecimentos/GetTotalQuilometrosRodadosPorAno/2020",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44370/api/Abastecimentos/GetTotalQuilometrosRodadosPorAno/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44370",
+					"path": [
+						"api",
+						"Abastecimentos",
+						"GetTotalQuilometrosRodadosPorAno",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44370/api/Abastecimentos/GetMediaMensalPorCarroKmPorLitros/2020",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44370/api/Abastecimentos/GetLitrosPorAno/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44370",
+					"path": [
+						"api",
+						"Abastecimentos",
+						"GetLitrosPorAno",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

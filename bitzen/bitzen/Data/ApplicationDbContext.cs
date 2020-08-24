@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using bitzen.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using bitzen.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +10,15 @@ namespace bitzen.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Seed();
+        }
 
         public DbSet<Veiculo> Veiculos { get; set; }
         public DbSet<Abastecimento> Abastecimentos { get; set; }
-         
+
 
     }
 }
